@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -47,9 +48,22 @@ public class CustomListAdapter extends BaseAdapter {
         TextView populationView = convertView.findViewById(R.id.textView_population);
 
         Country country = this.countryListData.get(position);
+        //vn, us, ru
+
+        ImageView flagView = convertView.findViewById(R.id.imageView_flag);
         countryNameView.setText(country.getCountryName());
         populationView.setText("Population: " + country.getPopulation());
 
+        flagView.setImageResource(this.getMipmapResIdByName(country.getFlagName()));
+
         return convertView;
+    }
+    //                             vn, us, ru
+    public int getMipmapResIdByName(String resName)  {
+        String pkgName = context.getPackageName();
+        // Return 0 if not found.
+        int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
+        //Log.i("CustomListView", "Res Name: "+ resName+"==> Res ID = "+ resID);
+        return resID;
     }
 }
